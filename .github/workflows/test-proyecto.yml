@@ -1,0 +1,29 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      # Paso 1: Descarga el código del repositorio en la máquina virtual
+      - name: Clonar el repositorio
+        uses: actions/checkout@v4
+
+      # Paso 2: Configura el entorno de Node.js
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # Paso 3: Instalar dependencias del package.json
+      - name: Instalar dependencias
+        run: npm install
+
+      # Paso 4: Ejecutar los tests automáticos
+      - name: Correr pruebas unitarias
+        run: npm test
